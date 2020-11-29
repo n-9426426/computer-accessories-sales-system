@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"  
+    "http://struts.apache.org/dtds/struts-2.3.dtd">  
+      
+<struts>  
+    <constant name="struts.i18n.encoding" value="UTF-8" />  
+    <constant name="struts.action.extension" value="action" />  
+
+
+	<package name="Forum" namespace="/" extends="struts-default">  
+	    <interceptors>
+	        <interceptor name="loginInter" class="jiabin.interceptor.LoginInterceptor"></interceptor>
+	    </interceptors>
+		<action name="User_*" class="jiabin.action.UserAction" method="{1}">
+			<result name="success">main.jsp</result>
+        	<result name="register_success">reg-result.jsp</result>
+        	<result name="error">login.jsp</result>
+        	<result name="login">log_result.jsp</result>
+        	<result name="logout" type="redirect">index.jsp</result>
+        	<result name="logout2" type="redirect">login.jsp</result>
+        	<result name="userCenter">userCenter/userInfo.jsp</result>
+        	<result name="errorAdmin">login.jsp</result>
+        	<result name="modify">userCenter/userModify.jsp</result>
+        	<result name="modifySuccess" type="redirectAction">User_userCenter</result>
+        	<result name="loginAdmin">main.jsp</result>
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+        	<interceptor-ref name="loginInter">
+        	    <param name="includeMethods">login</param>
+        	</interceptor-ref>
+        </action>
+        <action name="Zone_*" class="jiabin.action.ZoneAction" method="{1}">
+        	<result name="success">main.jsp</result>
+        </action>
+        <action name="Section_*" class="jiabin.action.SectionAction" method="{1}">
+        	<result name="success">main.jsp</result>
+        	<result name="save" type="redirectAction">admin/Section_list</result>
+        </action>
+        <action name="Topic_*" class="jiabin.action.TopicAction" method="{1}">
+        	<result name="success">topic/topicList.jsp</result>
+        	<result name="preSave">topic/topicAdd.jsp</result>
+        	<result name="save" type="redirectAction">Topic_list</result>
+        	<result name="details">topic/topicDetails.jsp</result>
+        	<result name="successAdmin">main.jsp</result>
+        </action>
+        <action name="Reply_*" class="jiabin.action.ReplyAction" method="{1}">
+        	
+        </action>
+    </package>  
+</struts>   
